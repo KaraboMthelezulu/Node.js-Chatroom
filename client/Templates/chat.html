@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script defer src="chat.js"></script>       
+         
 </head>
 <style>
 .contacts {
@@ -210,11 +210,13 @@ img {
                     <!-- GROUP CHAT WILL BE DISPLAYED HERE -->
                 </div>
 
-    <div id="message-container">
-         <form class="row" id="send-container" style="display: flex;justify-content: center;">
-        <input type="text" class="text-box col-9" id="message-input" placeholder="Type in message">
-        <button type="submit" id="send-button" class="send-button col-2">Send</button>
+    <div id="messageContainer">
+         <form class="row" id="sendContainer" style="display: flex;justify-content: center;">
+        <input type="text" class="text-box col-9" id="messageInput" placeholder="Type in message">
+        <button type="submit" id="sendButton" class="send-button col-2">Send</button>
         </form>
+    </div>
+
     </div>
 
    
@@ -226,6 +228,57 @@ img {
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <!-- Socket IO -->
     <script src="https://cdn.socket.io/4.1.1/socket.io.min.js" integrity="sha384-cdrFIqe3RasCMNE0jeFG9xJHog/tgOVC1E9Lzve8LQN1g5WUHo0Kvk1mawWjxX7a" crossorigin="anonymous"></script>
-        
+    <script defer src="chat.js"></script>
+
+
+    <script>
+        const username = `${username}`;
+const socket = io("http://localhost:8080" , {transports: ["websocket"]});
+
+socket.emit("userlist:request" , "please");
+
+socket.on("user:list" , (users) => {
+    console.log(users);
+    document.getElementById("userList").innerHTML = ` `;
+    for (var i = 0; i < users.length ; i++){
+        document.getElementById("userList").innerHTML += `<li>` + users[i] + `</li>`;
+    }
+});
+
+//Getting messages
+socket.emit("history:request" , "please");
+
+socket.on("history:response",(history) => {
+    console.log(history);
+
+    for(var i = 0; i < history.length; i++) {
+        document.getElementById("chatWindow").innerHTML +=
+        `<p>` +history[i].author+ ':' + history[i].message+ `</p>`;
+    }
+    
+})
+
+socket.on("new:message" , (newMessage) => {
+    document.getElementById("chatWindow").innerHTML +=
+        '<p>' +history[i].author+ ':' + history[i].message+ '</p>';
+}) 
+
+ $('form').submit(function(e) {
+          e.preventDefault();            
+      		socket.emit('newText', ($('#messageInput').val()));
+          $('#chatWindow').append($('<p id="list">').text($('#messageInput').val()));
+       $('#messageInput').val('');
+  return false;
+ });
+        socket.on('newText', function(messageContainer){
+     	$('#chatWindow').append($('<p>').text(messageContainer));
+     });
+
+
+socket.on('messagesSent', function(entry){
+      $('#chatWindow').append($('<ul>').text(entry));
+});
+
+    </script>
 </body>
 </html>

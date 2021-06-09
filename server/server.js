@@ -2,8 +2,10 @@ var http = require("http");
 
 
 
+
 //creating our server
 var server = http.createServer();
+
 
 //list of users that have logged in
 var users = [];
@@ -24,7 +26,7 @@ io.on("connection", (socket) => {
 
     socket.on("userlist:request" , (message) => {
          //respond with the user list
-         socket.broadcast.emit("user:list" , users);
+         socket.emit("user:list" , users);
     });
     
     socket.on("history:request" , (history) => {
@@ -35,6 +37,13 @@ io.on("connection", (socket) => {
         ];
         socket.emit("history:response",history);    
     });
+
+    socket.on("sentMessage: sent" , (sentMessage) => {
+        
+
+    });
+
+
 });
 //host the server on 8080
 server.listen(8080, function(){
