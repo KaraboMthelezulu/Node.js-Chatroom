@@ -3,6 +3,10 @@ var querystring = require("querystring");
 var fs = require("fs");
 var templates = require("./node_modules/es6-template-strings");
 
+
+var static = require('./node_modules/node-static');
+var fileServer = new static.Server("./public");
+
 //init client socket
 
 var io = require("socket.io-client");
@@ -17,7 +21,7 @@ var handleFormGet = function(request, response){
     response.writeHead(200, {"Content-Type": "text/html"});
     
     //fs
-    fs.readFile("Templates/login.html", "utf8", function(err, data) {
+    fs.readFile("./Templates/login.html", "utf8", function(err, data) {
         if(err) {throw err;}
 
         response.write(data);
@@ -53,7 +57,7 @@ var handleFormPost = function(request, response){
 
         contacts.push(post["username"]);
 
-        fs.readFile("Templates/chat.html", "utf8", function(err, data) {
+        fs.readFile("./Templates/chat.html", "utf8", function(err, data) {
             if(err) {throw err;}
 
             //compile template first to include our JS post data
@@ -112,8 +116,11 @@ server.on("request", function(request, response){
     if(handler != null) {
         handler(request, response);
     } else {
-        response.writeHead(404);
-        response.end();
+        fileServer.serve(request, response, function (e, res) {
+            if(e && (e.status === 404)){
+                fileServer.serveFile('../Templates/chat.html' ,404, {} , request,response)
+            }
+        });
     }
 });
 

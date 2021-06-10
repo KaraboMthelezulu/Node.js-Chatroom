@@ -1,14 +1,17 @@
 var http = require("http");
 
 
-
-
 //creating our server
 var server = http.createServer();
 
 
 //list of users that have logged in
 var users = [];
+
+var history = [
+    {author: "Ginny" , message: "Hey guys"},
+    {author: "Kate" , message: "Heyyyy"}
+];
 
 //initiated our socket
 var io = require("./node_modules/socket.io")(server);
@@ -26,25 +29,25 @@ io.on("connection", (socket) => {
 
     socket.on("userlist:request" , (message) => {
          //respond with the user list
-         socket.emit("user:list" , users);
+         io.emit("user:list" , users);
     });
     
-    socket.on("history:request" , (history) => {
+    socket.on("history:request" , (message) => {
 
-        var history = [
-            {author: "Ginny" , message: "Hey guys"},
-            {author: "Kate" , message: "Heyyyy"},
-        ];
-        socket.emit("history:response",history);    
+        io.emit("history:response",history);    
     });
 
-    socket.on("sentMessage: sent" , (sentMessage) => {
-        
+    //new messages
 
+    socket.on("message:sent", (newMessage) => {
+        history.push(newMessage);
+
+        //send message to all clients
+        io.emit("new:message", newMessage);
     });
-
 
 });
+
 //host the server on 8080
 server.listen(8080, function(){
     console.log("Listening on port 8080...");
