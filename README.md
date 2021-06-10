@@ -66,12 +66,13 @@ Pigeon Post, is a web based chat room application, developed using Node.js, Sock
 * [Socket.io]()
 * [JQuery]()
 * [Javascript]()
+* [Node.static]()
 
 ### Features
 
 - Sending/ Receiving Messages from connected users
 - Seeing users in chatroom
-- Receiveng all 'history messages' upon arrival.
+- Receiveng chat history upon arrival.
 
 
 <!-- GETTING STARTED -->
@@ -133,9 +134,6 @@ Lastly we will also install the templates strings module
 
 
 
-
-
-
 ## Concept Ideation
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
@@ -151,6 +149,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ### Task Flow
 
 <img src="./Assets/TaskFlow.png" alt="Logo" width="80%" height="" style="float:left, margin-left:10px;">
+
+### Moodboard
+
+<img src="./Assets/Moodboard.jpg" alt="Logo" width="80%" height="" style="float:left, margin-left:10px;">
 
 
 ## Video Demonstration

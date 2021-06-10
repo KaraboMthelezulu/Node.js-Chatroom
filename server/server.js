@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
     
     socket.on("history:request" , (message) => {
 
-        io.emit("history:response",history);    
+        socket.emit("history:response",history);    
     });
 
     //new messages

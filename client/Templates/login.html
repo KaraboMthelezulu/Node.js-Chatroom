@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
    <!--- <link href="login.css" rel="stylesheet" type="text/css"> --> 
 <style>
   body{
@@ -201,6 +201,14 @@ h5 {
     float: right;
 }
 
+h3{
+    font-size: 0.7rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #757575;
+    text-align: center;
+}
+
 
 
 input[type="checkbox" i] {
@@ -208,6 +216,38 @@ input[type="checkbox" i] {
     margin-top: 0px;
     height: 10px;
 }
+
+#message {
+  display:none;
+  color: #000;
+  position: relative;
+}
+
+#message p {
+    padding: 1px 0px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: .8rem;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+}
+
 
 </style>
 
@@ -224,11 +264,22 @@ input[type="checkbox" i] {
         <form method="POST" action="/chat">
             <p class="heading"><b>Welcome Back</b></p>
           <input type="text" name="username" placeholder="Username">
-          <input type="password" id="myInput" name="pasword" placeholder="Password">
+          <input type="password" id="myInput" name="pasword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password">
           <h5><input type="checkbox" onclick="myFunction()">Show Password</h5>
           <input type="submit" id="button" value="Login"><br><br>
         </form>
-      </div> 
+        <div id="message">
+            <h3>Password must contain the following:</h3>
+            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+          </div>
+
+      </div>
+      
+      
+                      
+      
 </section>
 
 <script>
@@ -241,6 +292,57 @@ input[type="checkbox" i] {
     }
   }
   </script>
+
+<script>
+    var myInput = document.getElementById("myInput");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+    
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+      document.getElementById("message").style.display = "block";
+    }
+    
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+      document.getElementById("message").style.display = "none";
+    }
+    
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+     
+      
+      // Validate capital letters
+      var upperCaseLetters = /[A-Z]/g;
+      if(myInput.value.match(upperCaseLetters)) {  
+        capital.classList.remove("invalid");
+        capital.classList.add("valid");
+      } else {
+        capital.classList.remove("valid");
+        capital.classList.add("invalid");
+      }
+    
+      // Validate numbers
+      var numbers = /[0-9]/g;
+      if(myInput.value.match(numbers)) {  
+        number.classList.remove("invalid");
+        number.classList.add("valid");
+      } else {
+        number.classList.remove("valid");
+        number.classList.add("invalid");
+      }
+      
+      // Validate length
+      if(myInput.value.length >= 8) {
+        length.classList.remove("invalid");
+        length.classList.add("valid");
+      } else {
+        length.classList.remove("valid");
+        length.classList.add("invalid");
+      }
+    }
+    </script>
 
     
     
