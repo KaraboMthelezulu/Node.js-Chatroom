@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href=" ">
-    <img src="./client/Img/LOGO.png" alt="Logo" width="80" height="80">
+    <img src="./client/public/Img/LOGO.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Pigeon Post</h3>
@@ -33,13 +33,17 @@
         <li><a href="#installation">How to Install</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Concept Ideation</a>
+    <li><a href="#concept-ideation">Concept Ideation</a>
       <ul>
         <li><a href="#wireframes">Wireframes</a></li>
         <li><a href="#task-flow">Task Flow</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#video-demonstration">Video Demonstration</a>
+      <ul>
+        <li><a href="#video-demo">Video Demo</a></li>
+      </ul>
+    </li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -60,7 +64,6 @@ Pigeon Post, is a web based chat room application, developed using Node.js, Sock
 
 * [Node.js]()
 * [Socket.io]()
-* [express]()
 * [JQuery]()
 * [Javascript]()
 
@@ -68,7 +71,7 @@ Pigeon Post, is a web based chat room application, developed using Node.js, Sock
 
 - Sending/ Receiving Messages from connected users
 - Seeing users in chatroom
-- Notified when new users enter chat room and when users leave
+- Receiveng all 'history messages' upon arrival.
 
 
 <!-- GETTING STARTED -->
@@ -93,12 +96,12 @@ There after we will go on to creating a `package.json` file:
 
 ### Installation
 
-<b>Web Framework</b><br>
+<b>Node Static</b><br>
 <br>
-Then we will move on to adding our web framework express, which will contribute in helping to set up our html files. By using npm install, this will make sure that is easily added to our dependancies located in our  package. json file.
+We have installed `node static` in order for it to serve static HTML files to us. By using npm install, this will make sure that is easily added to our dependancies located in our  package. json file.
 
    ```sh
-  npm install express 
+  npm install --save node-static
    ```
 
 Once this has been done we will create two .js files. 
@@ -148,6 +151,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 ### Task Flow
 
 <img src="./Assets/TaskFlow.png" alt="Logo" width="80%" height="" style="float:left, margin-left:10px;">
+
+
+## Video Demonstration
+
+### Video Demo
 
 
 
